@@ -25,10 +25,16 @@ Valid identifiers and effects:
 
  - `M`	- Mario -	Normal program, the input is automatically placed in the stack
  - `L`	- Luigi -	Normal program, the input is placed in the stack automatically inverted
- - `P`	- Peach -	Disabled negative numbers (`-1` will be  read `1`), requires explicit importing of the input to the stack when used alone (useful for quines).
+ - `P`	- Peach -	Disabled negative numbers (`-1` will be  read `1`), requires explicit importing of the input to the stack when used alone.
  - `B`	- Bowser-	Everything is placed as negative numbers in the stack. Using `BP` is the same as `M`
  - `T`	- Toad  -	Randomly mixed all the value in the stack, every command
- - `Y`	- Yoshi -	All letters will be interpreted as numbers. Adding 2 letters is adding the numbers.
+ - `Y`	- Yoshi -	All letters will be interpreted as numbers. Adding 2 letters is adding the numbers
+ - `K`	- DKong -	Automatically places a quine in the stack. **This clears the stack**
+
+**The order matters!**<br>
+`BK` and `KB` work differently.<br>
+`BK` receives input and turns into negative numbers, then places the quine.<br>
+`KB` places the quine and then it is turned into negative numbers.
 
 ## Return sequences
 
@@ -72,3 +78,6 @@ List of arithmetic symbols:
  - `-` - Substracts the values
  - `*` - Multiplies the values
  - `^` - Multiplies the value in the register *n* times.
+
+### String manipulation:
+
