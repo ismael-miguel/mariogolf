@@ -58,9 +58,9 @@ Where not specified, it returns what is in the stack as a string.
 
 Every program is itself a function.
 
-## Commands:
+## Commands
 
-### Arithmetic:
+### Arithmetic
 
 It is possible to do math with Mario.
 
@@ -79,5 +79,17 @@ List of arithmetic symbols:
  - `*` - Multiplies the values
  - `^` - Multiplies the value in the register *n* times.
 
-### String manipulation:
+### String manipulation
 
+String manipulation is also possible.
+
+### Stack operations
+
+You can also manipulate the stack directly.
+
+Allowed commands:
+
+ - `<` - Takes the first element of the stack and place in the register
+ - `>` - Place the value in the registed into the stack, as the first element
+ - `!` - Reverses the stack
+ - `?` - If the value is `0`, removes it of the stack
