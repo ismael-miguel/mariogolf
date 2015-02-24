@@ -28,13 +28,13 @@ Valid identifiers and effects:
  - `P`	- Peach -	Disabled negative numbers (`-1` will be  read `1`), requires implicit importing of the input to the stack when used alone.
  - `B`	- Bowser-	Everything is placed as negative numbers in the stack. Using `BP` is the same as `M`
  - `T`	- Toad  -	Randomizes the content of the stack
- - `Y`	- Yoshi -	All letters will be interpreted as numbers
- - `K`	- DKong -	Automatically places a quine in the stack. **This clears the stack**
+ - `Y`	- Yoshi -	Automatically places a quine in the stack. **This clears the stack**
+ - `K`  - DKong -   Normal program, starts with an empty stack
 
 **The order matters!**<br>
-`BK` and `KB` work differently.<br>
-`BK` receives input and turns into negative numbers, then places the quine.<br>
-`KB` places the quine and then it is turned into negative numbers.
+`BY` and `YB` work differently.<br>
+`BY` receives input and turns into negative numbers, then places the quine.<br>
+`YB` places the quine and then it is turned into negative numbers.
 
 ## Return sequences
 
@@ -73,9 +73,9 @@ It is possible to do math with Mario.
 
 Examples:
 
-    Y|+c|O
+    K|+c|O
     
-Which outputs the sum of the first character and `97`.
+Which outputs the sum of the first character and `c`.
 
 List of arithmetic symbols:
 
@@ -103,6 +103,7 @@ Allowed commands:
  - `.` - Destroys the first value in the stack
  - `,` - Pushes all the source code into the stack
  - `;` - Replaces the content of the stack with a quine
+ - `§` - Pushes all the input into the stack (To replace the content, use `.§`)
 
 ### Comparissons
 
@@ -136,7 +137,7 @@ The `for` loop loops a number until it reaches `0`, and will be stored in the re
 
 Example:
 
-    P||#9<|N
+    Y||#9<|N
 
 Receives no output, disables negative numbers and output from  `9` to `0`.
 
@@ -150,7 +151,7 @@ Goes through every element in the stack, storing it in the register.
 
 Example:
 
-    P||#F<|&*5|N
+    Y||#F<|&*5|N
 
 Outputs the result of multiplying all numbers from `0` to `10`.
 
