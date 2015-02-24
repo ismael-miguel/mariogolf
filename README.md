@@ -8,6 +8,8 @@ ________________________________________________________________________________
 
 Mario is a stack-based language which pipes information to multiple commands.
 
+Mario has 1 automatic register, where every pop or push is stored.
+
 Each command receives it and processes it individually.
 
 ## Syntax
@@ -49,3 +51,24 @@ Here are them all (full sequence with `|`):
 Where not specified, it returns what is in the stack as a string.
 
 Every program is itself a function.
+
+## Commands:
+
+### Arithmetic:
+
+It is possible to do math with Mario.
+
+Examples:
+
+    Y|+c|O
+    
+Which outputs the sum of the first character and `97`.
+
+List of arithmetic symbols:
+
+ - `+` - Sums the values
+ - `/` - Divides the values, returns an integer result
+ - `\` - Divides the values, returns the reminder
+ - `-` - Substracts the values
+ - `*` - Multiplies the values
+ - `^` - Multiplies the value in the register *n* times.
