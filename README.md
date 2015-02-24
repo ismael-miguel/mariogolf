@@ -28,8 +28,8 @@ Valid identifiers and effects:
  - `P`	- Peach -	Disabled negative numbers (`-1` will be  read `1`), requires implicit importing of the input to the stack when used alone.
  - `B`	- Bowser-	Everything is placed as negative numbers in the stack. Using `BP` is the same as `M`
  - `T`	- Toad  -	Randomizes the content of the stack
- - `Y`	- Yoshi -	Automatically places a quine in the stack. **This clears the stack**
- - `K`  - DKong -   Normal program, starts with an empty stack
+ - `Y`	- Yoshi -   Normal program, starts with an empty stack
+ - `K`  - DKong -	Automatically places a quine in the stack. **This clears the stack**
 
 **The order matters!**<br>
 `BY` and `YB` work differently.<br>
@@ -63,7 +63,7 @@ Every program is itself a function.
 There are a few ways to write literal values:
 
  - `0-9A-F` - Hexadecimal numbers (E.g.: `F`, `A5`)
- - `a-z` - Literal characters or encoded number (E.g.: `cc` may be `'cc'` or `9999`)
+ - `a-z` - Literal characters
 
 ## Commands
 
@@ -73,7 +73,7 @@ It is possible to do math with Mario.
 
 Examples:
 
-    K|+c|O
+    M|+c|O
     
 Which outputs the sum of the first character and `c`.
 
