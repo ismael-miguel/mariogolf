@@ -175,3 +175,7 @@ Example:
 
 If the current value is 0, sums 5.<br>
 If it is 5, then add 1, otherwise destroy the value.
+
+Same code, in PHP (badly golfed):
+
+    foreach($z=&$_POST as$k=>$v)if($v){if($v==5)$v++;else unset($z[$k]);}else $v=5;print_r($z);return$r;
