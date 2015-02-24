@@ -185,3 +185,18 @@ If it is 5, then add 1, otherwise destroy the value.
 Same code, in PHP (badly golfed):
 
     foreach($z=&$_POST as$k=>$v)if($v){if($v==5)$v++;else unset($z[$k]);}else $v=5;print_r($z);return$r;
+
+
+## Tricks
+
+You can do very quick ROT13 quines:
+
+    K|1
+
+You can process numbers as large as you wish:
+
+    Y|<9^99|O
+
+Or sum characters:
+
+   M||&<+'~'|O
