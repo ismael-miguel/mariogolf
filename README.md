@@ -98,8 +98,30 @@ Allowed commands:
  - `>` - Place the value in the registed into the stack, as the first element
  - `!` - Reverses the stack
  - `?` - If the value is `0`, removes it of the stack
- - `=` - Kills the stack
+ - `:` - Kills the stack
  - `.` - Destroys the first value in the stack
+
+### Comparissons
+
+Comparing values is hard.
+
+But can be done!
+
+Symbols:
+
+ - `[` - Higher than
+ - `]` - Lower than
+ - `=` - Equal
+ - `(` - Positive `>0`
+ - `)` - Negative `0<`
+
+Example:
+
+    M|>:<=C|O
+
+Reads the first character into the register `R`, destroys the stack and pushes the result of comparing it with `C` into the stack, displaying it.
+
+If a condition is verified, is produces `1`, otherwise `0`.
 
 ### Blocks and loops
 
@@ -149,7 +171,7 @@ An `else` is `|@`.
 
 Example:
 
-    M||&{|%><+5|@{|%{-5}+1|@.}}|O
+    M||&{|%><+5|@{|%=5+1|@.}}|O
 
 If the current value is 0, sums 5.<br>
 If it is 5, then add 1, otherwise destroy the value.
