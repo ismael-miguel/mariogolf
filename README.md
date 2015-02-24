@@ -87,6 +87,7 @@ List of arithmetic symbols:
  - `^` - Multiplies the value in the register *n* times.
  - `«` - Adds *n* bits, with a maximum of 32 bytes.
  - `»` - Removes *n* bits. If the register has less than *n* buts, it will be `0`
+ - `~` - Flipps all the bits in the register
 
 ### Stack operations
 
@@ -98,8 +99,10 @@ Allowed commands:
  - `>` - Place the value in the registed into the stack, as the first element
  - `!` - Reverses the stack
  - `?` - If the value is `0`, removes it of the stack
- - `:` - Kills the stack
+ - `:` - Purges the entire stack
  - `.` - Destroys the first value in the stack
+ - `,` - Pushes all the source code into the stack
+ - `;` - Replaces the content of the stack with a quine
 
 ### Comparissons
 
