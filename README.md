@@ -8,7 +8,7 @@ ________________________________________________________________________________
 
 Mario is a stack-based language which pipes information to multiple commands.
 
-Mario has 1 automatic register, where every pop or push is stored.
+Mario has 2 automatic registers, being `R` the returned value of some operation/function and `I` the register of a loop.
 
 Each command receives it and processes it individually.
 
@@ -27,8 +27,8 @@ Valid identifiers and effects:
  - `L`	- Luigi -	Normal program, the input is placed in the stack automatically inverted
  - `P`	- Peach -	Disabled negative numbers (`-1` will be  read `1`), requires implicit importing of the input to the stack when used alone.
  - `B`	- Bowser-	Everything is placed as negative numbers in the stack. Using `BP` is the same as `M`
- - `T`	- Toad  -	Randomly mixed all the value in the stack, every command
- - `Y`	- Yoshi -	All letters will be interpreted as numbers. Adding 2 letters is adding the numbers
+ - `T`	- Toad  -	Randomizes the content of the stack
+ - `Y`	- Yoshi -	All letters will be interpreted as numbers
  - `K`	- DKong -	Automatically places a quine in the stack. **This clears the stack**
 
 **The order matters!**<br>
@@ -63,7 +63,7 @@ Every program is itself a function.
 There are a few ways to write literal values:
 
  - `0-9A-F` - Hexadecimal numbers (E.g.: `F`, `A5`)
- - `a-z` - Literal characters or encoded number (E.g.: `cc`)
+ - `a-z` - Literal characters or encoded number (E.g.: `cc` may be `'cc'` or `9999`)
 
 ## Commands
 
@@ -99,6 +99,7 @@ Allowed commands:
  - `!` - Reverses the stack
  - `?` - If the value is `0`, removes it of the stack
  - `=` - Kills the stack
+ - `.` - Destroys the first value in the stack
 
 ### Blocks and loops
 
@@ -106,11 +107,11 @@ There are a few loops one can do.
 
 **For loop (`|#n`)**
 
-The `for` loop loops a number until it reaches `0`, and will be stored in `#`.
+The `for` loop loops a number until it reaches `0`, and will be stored in the register `I`.
 
 Example:
 
-    P||#9<#|N
+    P||#9<|N
 
 Receives no output, disables negative numbers and output from  `9` to `0`.
 
@@ -124,6 +125,31 @@ Goes through every element in the stack, storing it in the register.
 
 Example:
 
-    P||#F<#|&*5|N
+    P||#F<|&*5|N
 
 Outputs the result of multiplying all numbers from `0` to `10`.
+
+**Blocks**
+
+Code blocks are contained within `{}` and may return values
+
+Example:
+
+    M|>|${\3+5}<+1|O
+
+Reads the input, takes the first character, and loops from 0 to `(R % 3)+5` summing 1 in each iteration and pushing it into the stack.
+
+**Confitional execution**
+
+This works as an `if` on other languages.
+
+You use `|%` and then you use 1 pipe or a block.
+
+An `else` is `|@`.
+
+Example:
+
+    M||&{|%><+5|@{|%{-5}+1|@.}}|O
+
+If the current value is 0, sums 5.<br>
+If it is 5, then add 1, otherwise destroy the value.
