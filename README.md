@@ -62,8 +62,10 @@ Every program is itself a function.
 
 There are a few ways to write literal values:
 
- - `0-9A-F` - Hexadecimal numbers (E.g.: `F`, `A5`)
- - `a-z` - Literal characters
+ - `0-9` - Literal numbers
+ - `a-zA-Z` - Literal characters
+ - `""` - Double-quoted string (multiple stack values at once)
+ - `''` - Single-quoted character
 
 ## Commands
 
