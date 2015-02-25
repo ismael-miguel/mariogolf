@@ -87,8 +87,8 @@ List of arithmetic symbols:
  - `-` - Substracts the values
  - `*` - Multiplies the values
  - `^` - Multiplies the value in the register *n* times.
- - `«` - Adds *n* bits, with a maximum of 32 bytes.
- - `»` - Removes *n* bits. If the register has less than *n* buts, it will be `0`
+ - `«` - Adds *n* bits, with a maximum of 32 bits.
+ - `»` - Removes *n* bits. If the register has less than *n* bits, it will be `0`
  - `~` - Flipps all the bits in the register
 
 ### Stack operations
@@ -102,7 +102,7 @@ Allowed commands:
  - `!` - Reverses the stack
  - `?` - If the value is `0`, removes it of the stack
  - `:` - Purges the entire stack
- - `.` - Destroys the first value in the stack
+ - `.` - Destroy the first value in the stack
  - `,` - Pushes all the source code into the stack
  - `;` - Replaces the content of the stack with a quine
  - `§` - Pushes all the input into the stack (To replace the content, use `.§`)
@@ -117,13 +117,14 @@ Symbols:
 
  - `[` - Higher than
  - `]` - Lower than
- - `=` - Equal
+ - `ç` - Equal
+ - `Ç` - Not Equal
  - `(` - Positive `>0`
  - `)` - Negative `0<`
 
 Example:
 
-    M|>:<=C|O
+    M|>:<çC|O
 
 Reads the first character into the register `R`, destroys the stack and pushes the result of comparing it with `C` into the stack, displaying it.
 
@@ -165,7 +166,7 @@ Example:
 
     M|>|${\3+5}<+1|O
 
-Reads the input, takes the first character, and loops from 0 to `(R % 3)+5` summing 1 in each iteration and pushing it into the stack.
+Reads the input, takes the first character, and loops from 0 to `(Z % 3)+5` summing 1 in each iteration and pushing it into the stack.
 
 **Confitional execution**
 
@@ -186,6 +187,30 @@ Same code, in PHP (badly golfed):
 
     foreach($z=&$_POST as$k=>$v)if($v){if($v==5)$v++;else unset($z[$k]);}else $v=5;print_r($z);return$r;
 
+## Variables
+
+Variables are named registers.
+
+To declare a variable, use `|º` and then a name, which can be the range `a-z`.
+
+Use `=` to give it a value. If no value is specified, it will receive the value on the register `R`.
+
+To access a variable, use `|ª`.
+
+All the variables are global.
+
+Example:
+
+    M||&|ºz={+5}<|ªz|O
+
+Sums `5` to everything in the stack.
+
+Other registers:
+
+ - `|ªR` - Expricit automatic register
+ - `|ªI` - Explicit automatic register with the loop index
+ - `|ªL` - Stack length
+ - `|ªZ` - Last returned value.
 
 ## Tricks
 
