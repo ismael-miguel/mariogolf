@@ -8,7 +8,8 @@ ________________________________________________________________________________
 
 Mario is a stack-based language which pipes information to multiple commands.
 
-Mario has 2 automatic registers, being `R` the returned value of some operation/function and `I` the register of a loop.
+Mario has 2 automatic registers, being `R` the returned value of some operation/function and `I` the register of a loop.<br>
+Also, the register `Z` contains the last returned value from a block, while `L` contains the length of the stack.
 
 Each command receives it and processes it individually.
 
@@ -97,15 +98,15 @@ You can also manipulate the stack directly.
 
 Allowed commands:
 
- - `<` - Takes the first element of the stack and place in the register
+ - `<` - Takes the first element of the stack and place in the register `R`
+ - `<n`- Takes *n*  elements of the stack and places them the register `R` as a string
  - `>` - Place the value in the registed into the stack, as the first element
  - `!` - Reverses the stack
  - `?` - If the value is `0`, removes it of the stack
  - `:` - Purges the entire stack
  - `.` - Destroy the first value in the stack
- - `,` - Pushes all the source code into the stack
- - `;` - Replaces the content of the stack with a quine
- - `§` - Pushes all the input into the stack (To replace the content, use `.§`)
+ - `,` - Pushes all the input into the stack
+ - `;` - Replaces the stack content with the input (equivalent to `.,`)
 
 ### Comparisons
 
