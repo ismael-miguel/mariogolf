@@ -118,11 +118,11 @@ Allowed commands:
  - `<n`- Takes *n*  elements of the stack and places them the register `R` as a string
  - `>` - Place the value in the registed into the stack, as the first element
  - `!` - Reverses the stack
- - `?` - If the value is `0`, removes it of the stack
+ - `?` - If the value is `0`, removes it from the stack
  - `:` - Purges the entire stack
  - `.` - Destroy the first value in the stack
  - `,` - Pushes all the input into the stack
- - `;` - Replaces the stack content with the input (equivalent to `.,`)
+ - `;` - Replaces the stack content with the input (equivalent to `:,`)
 
 ### Comparisons
 
