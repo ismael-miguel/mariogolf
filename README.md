@@ -65,7 +65,7 @@ There are a few ways to write literal values:
  - `0-9` - Literal numbers
  - `a-zA-Z` - Literal characters
  - `""` - Double-quoted string (multiple stack values at once)
- - `''` - Single-quoted character
+ - `'` - Single-quoted character
 
 ## Commands
 
@@ -107,7 +107,7 @@ Allowed commands:
  - `;` - Replaces the content of the stack with a quine
  - `§` - Pushes all the input into the stack (To replace the content, use `.§`)
 
-### Comparissons
+### Comparisons
 
 Comparing values is hard.
 
@@ -168,7 +168,7 @@ Example:
 
 Reads the input, takes the first character, and loops from 0 to `(Z % 3)+5` summing 1 in each iteration and pushing it into the stack.
 
-**Confitional execution**
+**Conditional execution**
 
 This works as an `if` on other languages.
 
@@ -191,26 +191,24 @@ Same code, in PHP (badly golfed):
 
 Variables are named registers.
 
-To declare a variable, use `|º` and then a name, which can be the range `a-z`.
+To declare a variable, use a pipe and then a name, which can be the range `a-z`.
 
 Use `=` to give it a value. If no value is specified, it will receive the value on the register `R`.
-
-To access a variable, use `|ª`.
 
 All the variables are global.
 
 Example:
 
-    M||&|ºz={+5}<|ªz|O
+    M||&|z={+5}<|z|O
 
-Sums `5` to everything in the stack.
+Receives the input, sums `5` to everything in the stack and outputs it.
 
 Other registers:
 
- - `|ªR` - Expricit automatic register
- - `|ªI` - Explicit automatic register with the loop index
- - `|ªL` - Stack length
- - `|ªZ` - Last returned value.
+ - `|R` - Expricit automatic register
+ - `|I` - Explicit automatic register with the loop index
+ - `|L` - Stack length
+ - `|Z` - Last returned value.
 
 ## Tricks
 
