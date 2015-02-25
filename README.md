@@ -37,6 +37,22 @@ Valid identifiers and effects:
 `BY` receives input and turns into negative numbers, then places the quine.<br>
 `YB` places the quine and then it is turned into negative numbers.
 
+##Comments
+
+Comments must be in a line on its own. They can start with any character except the characters.
+
+Example:
+
+    Mario can make tiny `cat` programs:
+    M|O
+    # isn't required to be the first character, and may be nowhere!
+
+Only the first valid sequence of identifiers with a pipe will be ran:
+
+    Mario can make more tiny `cat` programs:
+    M|O
+    Y|;|O <-- won't run!
+
 ## Return sequences
 
 You are required to use a return sequence.
@@ -90,7 +106,7 @@ List of arithmetic symbols:
  - `^` - Multiplies the value in the register *n* times.
  - `«` - Adds *n* bits, with a maximum of 32 bits.
  - `»` - Removes *n* bits. If the register has less than *n* bits, it will be `0`
- - `~` - Flipps all the bits in the register
+ - `~` - Flips all the bits in the register
 
 ### Stack operations
 
@@ -186,7 +202,7 @@ If it is 5, then add 1, otherwise destroy the value.
 
 Same code, in PHP (badly golfed):
 
-    foreach($z=&$_POST as$k=>$v)if($v){if($v==5)$v++;else unset($z[$k]);}else $v=5;print_r($z);return$r;
+    foreach($z=&$_POST as$k=>$v)if($v){if($v==5)$v++;else unset($z[$k]);}else$v=5;print_r($z);return$r;
 
 ## Variables
 
@@ -206,10 +222,11 @@ Receives the input, sums `5` to everything in the stack and outputs it.
 
 Other registers:
 
- - `|R` - Expricit automatic register
+ - `|R` - Explicit automatic register
  - `|I` - Explicit automatic register with the loop index
- - `|L` - Stack length
- - `|Z` - Last returned value.
+ - `|P` - Current 0-based index that is being read of the code (E.g.: `Y|<|P|M` would print `2`)
+ - `|L` - Current stack length
+ - `|Z` - Last returned value
 
 ## Tricks
 
