@@ -35,6 +35,11 @@
 		 */
 		rot13 = function(s){return s.replace(/[a-zA-Z]/g,function(c){return String.fromCharCode((c<="Z"?90:122)>=(c=c.charCodeAt(0)+13)?c:c-26);});},
 		
+		NotImplemented = function(feature){
+			this.name = 'NotImplemented';
+			this.message = 'The feature "' + feature + '" wasn\'t implemented';
+		},
+		
 		runBlock = function( block ){
 			
 		};
@@ -73,12 +78,58 @@
 								}
 							}
 							break;
+						case 'T':
+							console.log('This feature isn\'t implemented');
+							throw new NotImplemented('identifier T (Toad)');
+							break;
+						case 'Y':break; //empty stack
+						case 'K':
+							memory.input = memory.code.split('');break;
 						default:
 							throw new ReferenceError('Unknown identifier "'+c+'"');
 					}
 				}
 				
-				return memory.return = runBlock( memory.code );
+				if( memory.code[1].indexOf('Q') == -1 )
+				{
+					memory.return = runBlock( memory.code );
+				}
+				
+				for(var i = 0, l = memory.code[1], c; i<l; i++)
+				{
+					switch(c = memory.code[1].charCodeAt(i))
+					{
+						case '-':
+							memory.return = undefined;
+						case 'O':
+							console.log( memory.output = memory.stack.join('') );break;
+						case 'Q':
+							console.log( memory.output = memory.code );break;
+						case '|':
+							memory.return = memory.stack;break;
+						case '1':
+							console.log( memory.output = rot13( memory.stack.join('') ) );break;
+						case 'R':
+							console.log( memory.output = memory.stack.join('').reverse() );break;
+						case 'N':
+							console.log( memory.output = memory.stack.join('').split('').join('\r\n') );
+							memory.return = memory.output.split('\r\n')break;
+						case 'M':
+							memory.return = [];
+							if( memory.stack.length )
+							{
+								for(var j = 0, k = memory.stack.length; j<k; j++)
+								{
+									memory.return[j] = 'string' == typeof memory.stack[j] ?  : String.fromCharCode(memory.stack[j]) : memory.stack[j];
+								}
+							}
+							console.log( memory.output = memory.return.join('\r\n') );break;
+						default:
+							throw new ReferenceError('Unknown identifier "'+c+'"');
+					}
+				}
+				
+				return memory.return;
 			},
 			getStack: function(){ return memory.stack; },
 			getReturn: function(){ return memory.return; },
