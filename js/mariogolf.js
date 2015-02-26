@@ -58,9 +58,9 @@
 				
 				var negative = true;
 				
-				for(var i = 0, l = memory.code[0], c; i<l; i++)
+				for(var i = 0, l = memory.code[1], c; i<l; i++)
 				{
-					switch(c = memory.code[0].charCodeAt(i))
+					switch(c = memory.code[1].charCodeAt(i))
 					{
 						case 'M':
 							memory.input = (input || '');break;
@@ -90,14 +90,14 @@
 					}
 				}
 				
-				if( memory.code[1].indexOf('Q') == -1 )
+				if( memory.code[3].indexOf('Q') == -1 )
 				{
 					memory.return = runBlock( memory.code );
 				}
 				
-				for(var i = 0, l = memory.code[1], c; i<l; i++)
+				for(var i = 0, l = memory.code[3], c; i<l; i++)
 				{
-					switch(c = memory.code[1].charCodeAt(i))
+					switch(c = memory.code[3].charCodeAt(i))
 					{
 						case '-':
 							memory.return = undefined;
@@ -134,7 +134,8 @@
 			getStack: function(){ return memory.stack; },
 			getReturn: function(){ return memory.return; },
 			getVars: function(){ return memory.vars; },
-			getOutput: function(){ return memory.output; }
+			getOutput: function(){ return memory.output; },
+			getMemory: function(){ return memory; }
 		};
 		
 	};
