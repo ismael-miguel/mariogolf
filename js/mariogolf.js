@@ -35,6 +35,15 @@
 		 */
 		rot13 = function(s){return s.replace(/[a-zA-Z]/g,function(c){return String.fromCharCode((c<="Z"?90:122)>=(c=c.charCodeAt(0)+13)?c:c-26);});},
 		
+		/*All credits due to @Jeff (http://stackoverflow.com/users/353278) for this function
+		 *Original source: http://snippets.dzone.com/posts/show/849
+		 *http://stackoverflow.com/questions/6274339/how-can-i-shuffle-an-array-in-javascript
+		 */
+		shuffle = function(o){
+			for(var j, x, i = o.length; i; j = Math.floor(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
+			return o;
+		},
+		
 		NotImplemented = function(feature){
 			this.name = 'NotImplemented';
 			this.message = 'The feature "' + feature + '" wasn\'t implemented';
@@ -49,72 +58,74 @@
 				memory = {
 					code:memory.code,
 					return:'',
-					input:'',
+					input:input,
 					stack:[],
-					registers:{R:0,I:0,P:0,L:0,Z:0},
+					registers:{R:0,I:memory.code.index,P:0,L:0,Z:0},
 					vars:{},
 					output:''
 				};
 				
 				var negative = true;
 				
-				for(var i = 0, l = memory.code[1], c; i<l; i++)
+				for(var i = 0, l = memory.code[1].length, c; i<l; i++)
 				{
-					switch(c = memory.code[1].charCodeAt(i))
+					switch(c = memory.code[1].charAt(i))
 					{
-						case 'M':
-							memory.input = (input || '');break;
-						case 'L':
-							memory.input = input ? (input + '').reverse() : '';break;
-						case 'P':
+						case 'M': //loads all the characters to the stack
+							memory.stack = (input || '').split('');break;
+						case 'L': //same as M, but reverses
+							memory.stack = input ? (input + '').reverse().split('') : [];break;
+						case 'P': //disables negatives
 							negative = false;break;
-						case 'B':
-							memory.input = [];
+						case 'B': //EVERYTHING is a negative number
+							memory.stack = [];
 							if( input )
 							{
 								for(var j = 0, k = input.length; j<k; j++)
 								{
-									memory.input[j] = -input.charCodeAt(j);
+									memory.stack[j] = -input.charAt(j);
 								}
 							}
 							break;
-						case 'T':
-							console.log('This feature isn\'t implemented');
-							throw new NotImplemented('identifier T (Toad)');
-							break;
+						case 'T': //shuffles the stack
+							memory.stack = shuffle( memory.stack );break;
 						case 'Y':break; //empty stack
-						case 'K':
-							memory.input = memory.code.split('');break;
+						case 'K': //places a quine into the stack
+							memory.stack = memory.code.split('');break;
 						default:
 							throw new ReferenceError('Unknown identifier "'+c+'"');
 					}
 				}
 				
-				if( memory.code[3].indexOf('Q') == -1 )
+				memory.registers.L = memory.stack.length;
+				
+				if( memory.code[3].indexOf('Q') == -1 && memory.code[2] )
 				{
+					console.log('This feature isn\'t implemented');
+					throw new NotImplemented('identifier T (Toad)');
 					memory.return = runBlock( memory.code );
 				}
 				
-				for(var i = 0, l = memory.code[3], c; i<l; i++)
+				for(var i = 0, l = memory.code[3].length, c; i<l; i++)
 				{
-					switch(c = memory.code[3].charCodeAt(i))
+					switch(c = memory.code[3].charAt(i))
 					{
-						case '-':
+						case '-': //destroy the return
 							memory.return = undefined;
-						case 'O':
+						case 'O': //display the content
 							console.log( memory.output = memory.stack.join('') );break;
-						case 'Q':
+						case 'Q': //quine
 							console.log( memory.output = memory.code );break;
-						case '|':
+						case '|': //doesn't display anything, returns the stack
 							memory.return = memory.stack;break;
-						case '1':
+						case '1': //displays the content as rot13
 							console.log( memory.output = rot13( memory.stack.join('') ) );break;
-						case 'R':
-							console.log( memory.output = memory.stack.join('').reverse() );break;
-						case 'N':
+						case 'R': //displays reversed
+							console.log( memory.output = memory.stack.join('').split('').reverse().join('') );break;
+						case 'N': //outputs line by line, returns array
 							console.log( memory.output = memory.stack.join('').split('').join('\r\n') );
 							memory.return = memory.output.split('\r\n');break;
-						case 'M':
+						case 'M': //outputs numbers line-by-line, returns array
 							memory.return = [];
 							if( memory.stack.length )
 							{
