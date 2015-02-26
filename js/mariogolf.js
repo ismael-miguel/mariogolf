@@ -113,14 +113,14 @@
 							console.log( memory.output = memory.stack.join('').reverse() );break;
 						case 'N':
 							console.log( memory.output = memory.stack.join('').split('').join('\r\n') );
-							memory.return = memory.output.split('\r\n')break;
+							memory.return = memory.output.split('\r\n');break;
 						case 'M':
 							memory.return = [];
 							if( memory.stack.length )
 							{
 								for(var j = 0, k = memory.stack.length; j<k; j++)
 								{
-									memory.return[j] = 'string' == typeof memory.stack[j] ?  : String.fromCharCode(memory.stack[j]) : memory.stack[j];
+									memory.return[j] = 'string' == typeof memory.stack[j] ? memory.stack[j] : String.fromCharCode(memory.stack[j]);
 								}
 							}
 							console.log( memory.output = memory.return.join('\r\n') );break;
