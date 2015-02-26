@@ -27,6 +27,14 @@
 			output:''
 		},
 		
+		/*All credits due to @BenAlpert (http://stackoverflow.com/users/49485/ben-alpert) for this implementation
+		 *Original code: s.replace(/[a-zA-Z]/g,function(c){return String.fromCharCode((c<="Z"?90:122)>=(c=c.charCodeAt(0)+13)?c:c-26);});
+		 *Also, the use @ledlogic (http://stackoverflow.com/users/987044/ledlogic) made a general rot# function:
+		 *function rot(s,i){return s.replace(/[a-zA-Z]/g,function(c){return String.fromCharCode((c<="Z"?90:122)>=(c=c.charCodeAt(0)+i)?c:c-26);});}
+		 *The latest is available on http://jsfiddle.net/ledlogic/tC7qe/
+		 */
+		rot13 = function(s){return s.replace(/[a-zA-Z]/g,function(c){return String.fromCharCode((c<="Z"?90:122)>=(c=c.charCodeAt(0)+13)?c:c-26);});},
+		
 		runBlock = function( block ){
 			
 		};
@@ -36,12 +44,39 @@
 				memory = {
 					code:memory.code,
 					return:'',
-					input:input,
+					input:'',
 					stack:[],
 					registers:{R:0,I:0,P:0,L:0,Z:0},
 					vars:{},
 					output:''
 				};
+				
+				var negative = true;
+				
+				for(var i = 0, l = memory.code[0], c; i<l; i++)
+				{
+					switch(c = memory.code[0].charCodeAt(i))
+					{
+						case 'M':
+							memory.input = (input || '');break;
+						case 'L':
+							memory.input = input ? (input + '').reverse() : '';break;
+						case 'P':
+							negative = false;break;
+						case 'B':
+							memory.input = [];
+							if( input )
+							{
+								for(var j = 0, k = input.length; j<k; j++)
+								{
+									memory.input[j] = -input.charCodeAt(j);
+								}
+							}
+							break;
+						default:
+							throw new ReferenceError('Unknown identifier "'+c+'"');
+					}
+				}
 				
 				return memory.return = runBlock( memory.code );
 			},
