@@ -8,11 +8,12 @@ This is implemented in ES5 and should be compatible with most browsers since IE5
 
 ## How to use
 
-To use, simply include the Javascript file *before* attempting to run the code.
+To use, simply include the Javascript file *before* attempting to run the code.<br>
+The file `mariogolf.min.js` is a minimified version of `mariogolf.js`, being it minimified by hand.
 
-This uses a technique to extract the real `window` object.
-
-It shouldn't work on Node.js or similar.
+This uses a technique to extract the real `window` object.<br>
+It may not work on Node.js or similar.<br>
+The  `window` object is used to ensure that the object `MarioGolf` will stay available everywhere.
 
 ## Making it work
 
@@ -56,8 +57,17 @@ To be sure that everything goes correctly, use something similar to the followin
         }
     }
 
+## Methods
+
+ - `run('<input>')` - Runs the code with the given input. Can be used multiple times.
+ - `getStack()` - Returns an array with the content of the stack, after the program finished.
+ - `getReturn()` - Returns the last returned value in the code. This may come from a block or after program termination.
+ - `getVars()` - Returns an object containing all the values in all the registers. Each key is linked directly to the corresponding register.
+ - `getOutput()` - Returns the output produced by the program.
+
 ## Notices
 
  - You have to create the object again to use it.
- - You can re-use the same object to run the same code for different inputs.
+ - You can re-use the same object to run the same code for different inputs.<br>
+   E.g.: `var mario = MarioGolf('M|O'); mario.run(''); marion.run('multiple'); marion.run('times');`
  - Pay attention to the nesting level of loops.
