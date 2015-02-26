@@ -8,6 +8,10 @@
 		{
 			throw new SyntaxError( 'Expecting identifier, got ' + (code? 'invalid program' : '0-length code' ) + '.', 'code', 0 );
 		}
+		/*All credits due to @Jens (http://stackoverflow.com/users/276070/jens) for the trick:
+		 *\+(?=([^"]*"[^"]*")*[^"]*$) - matches any + not inside quotes
+		 *Question: http://stackoverflow.com/questions/6462578/alternative-to-regex-match-all-instances-not-inside-quotes
+		 */
 		else if( code[2] != undefined && ( tmp[0] = code[2].match( /\{(?=([^"]*"[^"]*")*[^"]*$)/g ) || [] ).length != ( tmp[1] = code[2].match( /\}(?=([^"]*"[^"]*")*[^"]*$)/g ) || [] ).length )
 		{
 			throw new SyntaxError( 'Missing "' + ( tmp[0] < tmp[1] ? '{' : '}' ) + '" before the last identifier.', 'code', 0 );
