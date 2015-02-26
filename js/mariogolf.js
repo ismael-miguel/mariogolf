@@ -91,7 +91,7 @@
 							memory.stack = shuffle( memory.stack );break;
 						case 'Y':break; //empty stack
 						case 'K': //places a quine into the stack
-							memory.stack = memory.code.split('');break;
+							memory.stack = memory.code[0].split('');break;
 						default:
 							throw new ReferenceError('Unknown identifier "'+c+'"');
 					}
@@ -115,7 +115,7 @@
 						case 'O': //display the content
 							console.log( memory.output = memory.stack.join('') );break;
 						case 'Q': //quine
-							console.log( memory.output = memory.code );break;
+							console.log( memory.output = memory.code[0] );break;
 						case '|': //doesn't display anything, returns the stack
 							memory.return = memory.stack;break;
 						case '1': //displays the content as rot13
