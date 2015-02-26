@@ -28,8 +28,18 @@
 		};
 		
 		return {
-			run: function(run){
+			run: function( input ){
+				memory = {
+					code:memory.code,
+					return:'',
+					input:input,
+					stack:[],
+					registers:{R:0,I:0,P:0,L:0,Z:0}
+					vars:{},
+					output:''
+				};
 				
+				return runBlock( memory.code );
 			},
 			getStack: function(){ return memory.stack; },
 			getReturn: function(){ return memory.return; },
