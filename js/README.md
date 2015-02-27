@@ -64,6 +64,9 @@ To be sure that everything goes correctly, use something similar to the followin
  - `getReturn()` - Returns the last returned value in the code. This may come from a block or after program termination.
  - `getVars()` - Returns an object containing all the values in all the registers. Each key is linked directly to the corresponding register.
  - `getOutput()` - Returns the output produced by the program.
+ - `getMemory()` - Returns the content of the memory (variables, registers, input, code, output, ...)
+ - `setOutputHandler(<fn>)` - Sets a new function to handle the output.<br>
+   (Default: `window.console.log`, you can use `document.write`, `window.alert` or an anonymous function. Only 1 argument will be set, which will contain the output.)
 
 ## Notices
 
