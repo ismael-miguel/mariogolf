@@ -217,7 +217,7 @@
 						case '|': //doesn't display anything, returns the stack
 							memory.return = memory.stack;break;
 						case '1': //displays the content as rot13
-							outputHandler.call( window.console, [memory.output = rot13( memory.stack.join('')] ) );break;
+							outputHandler.call( window.console, [memory.output = rot13( memory.stack.join('') )] );break;
 						case 'R': //displays reversed
 							outputHandler.call( window.console, [memory.output = memory.stack.join('').split('').reverse().join('')] );break;
 						case 'N': //outputs line by line, returns array
