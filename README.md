@@ -114,9 +114,10 @@ You can also manipulate the stack directly.
 
 Allowed commands:
 
- - `<` - Takes the first element of the stack and place in the register `R`
- - `<n`- Takes *n*  elements of the stack and places them the register `R` as a string
- - `>` - Place the value in the registed into the stack, as the first element
+ - `>` - Takes the first element of the stack and place in the register `R`
+ - `>n`- Takes *n*  elements of the stack and places them the register `R` as a string
+ - `<` - Place the value in the registed into the stack, as the first element
+ - `<v`- Place the literal value into the stack, as the first element
  - `!` - Reverses the stack
  - `?` - If the value is `0`, removes it from the stack
  - `:` - Purges the entire stack
