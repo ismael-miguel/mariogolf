@@ -1,5 +1,3 @@
-// Regular expression /(?:^|[\r\n])([MLPBTYK]+)\|(?:(.*)\|)?([OQ|\-1RNM])(?:$|[\r\n])/
-
 ( function( window, undefined ){
 	
 	window.MarioGolf = function( code ){
@@ -44,8 +42,64 @@
 			return o;
 		},
 		
-		runBlock = function( block ){
+		//tries to parse or get a value from a piece of code
+		fetchValue = function( code ){
 			
+		},
+		
+		runBlock = function( block ){
+			for( var i = 0, l = block.length, c, Return; i<l; i++)
+			{
+				switch(c = block.charAt(i))
+				{
+				
+					/*******Arithmetic*******/
+					
+					case '+':
+						Return = (memory.registers.R / 1 || 0 ) + fetchValue( block.slice(i) );
+						break;
+					case '/':
+						Return = ( (memory.registers.R / 1 || 0 ) / fetchValue( block.slice(i) ) ) >> 0;
+						break;
+					case '\\':
+						Return = ( memory.registers.R / 1 || 0 ) % fetchValue( block.slice(i) );
+						break;
+					case '-':
+						Return = memory.registers.R - fetchValue( block.slice(i) );
+						break;
+					case '^':
+						Return = Math.pow( memory.registers.R, fetchValue( block.slice(i) ) );
+						break;
+					case '«':
+						Return = ( memory.registers.R / 1 || 0 ) << fetchValue( block.slice(i) ) ) & 32;
+						break;
+					case '»':
+						Return = ( memory.registers.R / 1 || 0 ) >> fetchValue( block.slice(i) ) ) & 32;
+						break;
+					case '~':
+						Return = ~ ( memory.registers.R / 1 || 0 );
+						break;
+				
+					/*******   Stack   *******/
+					
+					case '<':
+						var tmp = fetchValue( block.slice(i) );
+						if( tmp / 1 == tmp / 1)
+						{
+							Return = memory.stack[memory.stack.length] = tmp >> 0;
+						}
+						else
+						{
+							for(var j = 0, k = tmp.length; j<k; j++)
+							{
+								memory.stack[memory.stack.length] = tmp.charAt(i);
+							}
+						}
+						memory.registers.R = memory.stack[0];
+						memory.registers.L = memory.stack.length;
+						break;
+				}
+			}
 		},
 		
 		outputHandler = window.console.log;
