@@ -66,7 +66,9 @@ To be sure that everything goes correctly, use something similar to the followin
  - `getOutput()` - Returns the output produced by the program.
  - `getMemory()` - Returns the content of the memory (variables, registers, input, code, output, ...)
  - `setOutputHandler(<fn>)` - Sets a new function to handle the output.<br>
-   (Default: `window.console.log`, you can use `document.write`, `window.alert` or an anonymous function. Only 1 argument will be set, which will contain the output.)
+   Default: `window.console.log`, you can use `document.write`, `window.alert` or an anonymous function<br>
+   Only 1 argument will be set, which will contain the output.<br>
+   Using `this` inside the output handler will be pointing to `window.console`, so you can do simply `this.log()`.
 
 ## Notices
 
