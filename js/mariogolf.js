@@ -44,6 +44,55 @@
 		
 		//tries to parse or get a value from a piece of code
 		fetchValue = function( code ){
+			var currentChar = code.charAt(0), nextChar = code.charAt(1)
+			switch( currentChar )
+			{
+				case '\'':
+					return nextChar;
+					
+				case '"':
+					if( ~code.indexOf('"',1) )
+					{
+						return code.substring(1, code.indexOf('"',1)-1 );
+					}
+					else
+					{
+						throw new SyntaxError( 'Missing " before the end of the code', 'code', 0 );
+					}
+					break;
+					
+				case '|':
+					if( /[a-zRIPLZ]/.test( nextChar ) )
+					{
+						if( nextChar < 'a')
+						{
+							return memory.registers[nextChar];
+						}
+						else
+						{
+							return memory.vars[nextChar] === undefined ? 0 : memory.vars[nextChar];
+						}
+					}
+					else
+					{
+						throw new ReferenceError( 'Undefined register "'+nextChar+'"', 'code', 0 );
+					}
+					break;
+					
+				case '{':
+					return runBlock( code );
+					
+				default:
+					
+					if( /[a-z\d]/.test(currentChar) )
+					{
+						return code.match( /(^[a-z\d]+)/ )[1] || 0;
+					}
+					else
+					{
+						return;
+					}
+			}
 			
 		},
 		
@@ -71,10 +120,10 @@
 						Return = Math.pow( memory.registers.R, fetchValue( block.slice(i) ) );
 						break;
 					case '«':
-						Return = ( memory.registers.R / 1 || 0 ) << fetchValue( block.slice(i) ) ) & 32;
+						Return = ( memory.registers.R / 1 || 0 ) << ( fetchValue( block.slice(i) ) & 32 );
 						break;
 					case '»':
-						Return = ( memory.registers.R / 1 || 0 ) >> fetchValue( block.slice(i) ) ) & 32;
+						Return = ( memory.registers.R / 1 || 0 ) >> ( fetchValue( block.slice(i) ) & 32 );
 						break;
 					case '~':
 						Return = ~ ( memory.registers.R / 1 || 0 );
@@ -152,7 +201,7 @@
 				
 				if( memory.code[3].indexOf('Q') == -1 && memory.code[2] )
 				{
-					memory.return = runBlock( memory.code );
+					memory.return = runBlock( memory.code[2] );
 				}
 				
 				for(var i = 0, l = memory.code[3].length, c; i<l; i++)
@@ -162,17 +211,17 @@
 						case '-': //destroy the return
 							memory.return = undefined;
 						case 'O': //display the content
-							outputHandler( memory.output = memory.stack.join('') );break;
+							outputHandler.call( window, [memory.output = memory.stack.join('')] );break;
 						case 'Q': //quine
-							outputHandler( memory.output = memory.code[0].replace(/^\s+/,'') );break;
+							outputHandler.call( window, [memory.output = memory.code[0].replace(/^\s+/,'')] );break;
 						case '|': //doesn't display anything, returns the stack
 							memory.return = memory.stack;break;
 						case '1': //displays the content as rot13
-							outputHandler( memory.output = rot13( memory.stack.join('') ) );break;
+							outputHandler.call( window, [memory.output = rot13( memory.stack.join('')] ) );break;
 						case 'R': //displays reversed
-							outputHandler( memory.output = memory.stack.join('').split('').reverse().join('') );break;
+							outputHandler.call( window, [memory.output = memory.stack.join('').split('').reverse().join('')] );break;
 						case 'N': //outputs line by line, returns array
-							outputHandler( memory.output = memory.stack.join('').split('').join('\r\n') );
+							outputHandler.call( window, [memory.output = memory.stack.join('').split('').join('\r\n')] );
 							memory.return = memory.output.split('\r\n');break;
 						case 'M': //outputs numbers line-by-line, returns array
 							memory.return = [];
@@ -183,7 +232,7 @@
 									memory.return[j] = 'string' == typeof memory.stack[j] ? memory.stack[j] : String.fromCharCode(memory.stack[j]);
 								}
 							}
-							outputHandler( memory.output = memory.return.join('\r\n') );break;
+							outputHandler.call( window, [memory.output = memory.return.join('\r\n')] );break;
 						default:
 							throw new ReferenceError('Unknown identifier "'+c+'"');
 					}
