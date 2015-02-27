@@ -211,17 +211,17 @@
 						case '-': //destroy the return
 							memory.return = undefined;
 						case 'O': //display the content
-							outputHandler.call( window, [memory.output = memory.stack.join('')] );break;
+							outputHandler.call( window.console, [memory.output = memory.stack.join('')] );break;
 						case 'Q': //quine
-							outputHandler.call( window, [memory.output = memory.code[0].replace(/^\s+/,'')] );break;
+							outputHandler.call( window.console, [memory.output = memory.code[0].replace(/^\s+/,'')] );break;
 						case '|': //doesn't display anything, returns the stack
 							memory.return = memory.stack;break;
 						case '1': //displays the content as rot13
-							outputHandler.call( window, [memory.output = rot13( memory.stack.join('')] ) );break;
+							outputHandler.call( window.console, [memory.output = rot13( memory.stack.join('')] ) );break;
 						case 'R': //displays reversed
-							outputHandler.call( window, [memory.output = memory.stack.join('').split('').reverse().join('')] );break;
+							outputHandler.call( window.console, [memory.output = memory.stack.join('').split('').reverse().join('')] );break;
 						case 'N': //outputs line by line, returns array
-							outputHandler.call( window, [memory.output = memory.stack.join('').split('').join('\r\n')] );
+							outputHandler.call( window.console, [memory.output = memory.stack.join('').split('').join('\r\n')] );
 							memory.return = memory.output.split('\r\n');break;
 						case 'M': //outputs numbers line-by-line, returns array
 							memory.return = [];
@@ -232,7 +232,7 @@
 									memory.return[j] = 'string' == typeof memory.stack[j] ? memory.stack[j] : String.fromCharCode(memory.stack[j]);
 								}
 							}
-							outputHandler.call( window, [memory.output = memory.return.join('\r\n')] );break;
+							outputHandler.call( window.console, [memory.output = memory.return.join('\r\n')] );break;
 						default:
 							throw new ReferenceError('Unknown identifier "'+c+'"');
 					}
