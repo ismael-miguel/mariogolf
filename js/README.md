@@ -29,7 +29,7 @@ To run, simply call the method `run`:
 
 When specified, this method will return the appropriate data or `undefined` otherwise.
 
-The output will be made to the console ('`console.log()`'). It is still stored and accessible through `mario.getOutput()`.
+The output will be made to a pre-defined function (`console.log()` as the default). It is still stored and accessible through `mario.getOutput()`.
 
 ## Exceptions:
 
