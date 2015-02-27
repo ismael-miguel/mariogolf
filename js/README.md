@@ -33,10 +33,11 @@ The output will be made to a pre-defined function (`console.log()` as the defaul
 
 ## Exceptions:
 
-This implementation will throw 2 different `SyntaxError` exceptions in the following conditions:
+This implementation will throw 3 different `SyntaxError` exceptions in the following conditions:
 
  1. When no valid code is found;
- 2. When you have an inconsistent number of `{}`, leading to a missing `{` or `}`.
+ 2. When you have an inconsistent number of `{}`, leading to a missing `{` or `}`;
+ 3. When a `"` is missing (which means that there isn't an even number).
 
 To be sure that everything goes correctly, use something similar to the following code:
 
@@ -56,6 +57,14 @@ To be sure that everything goes correctly, use something similar to the followin
             '<this means it is another exception (recursion, maybe?)>';
         }
     }
+
+When running, a `ReferenceError` may be throw in very specific cases, when trying to access a pipe that isn't a register, as if it was a value.
+
+Example:
+
+    M||&{+|!}|O
+
+This would trigger the exception since `|!` isn't a valid register.
 
 ## Methods
 
