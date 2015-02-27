@@ -44,14 +44,11 @@
 			return o;
 		},
 		
-		NotImplemented = function(feature){
-			this.name = 'NotImplemented';
-			this.message = 'The feature "' + feature + '" wasn\'t implemented';
-		},
-		
 		runBlock = function( block ){
 			
-		};
+		},
+		
+		outputHandler = window.console.log;
 		
 		return {
 			run: function( input ){
@@ -101,8 +98,6 @@
 				
 				if( memory.code[3].indexOf('Q') == -1 && memory.code[2] )
 				{
-					console.log('This feature isn\'t implemented');
-					throw new NotImplemented('identifier T (Toad)');
 					memory.return = runBlock( memory.code );
 				}
 				
@@ -113,17 +108,17 @@
 						case '-': //destroy the return
 							memory.return = undefined;
 						case 'O': //display the content
-							console.log( memory.output = memory.stack.join('') );break;
+							outputHandler( memory.output = memory.stack.join('') );break;
 						case 'Q': //quine
-							console.log( memory.output = memory.code[0].replace(/^\s+/,'') );break;
+							outputHandler( memory.output = memory.code[0].replace(/^\s+/,'') );break;
 						case '|': //doesn't display anything, returns the stack
 							memory.return = memory.stack;break;
 						case '1': //displays the content as rot13
-							console.log( memory.output = rot13( memory.stack.join('') ) );break;
+							outputHandler( memory.output = rot13( memory.stack.join('') ) );break;
 						case 'R': //displays reversed
-							console.log( memory.output = memory.stack.join('').split('').reverse().join('') );break;
+							outputHandler( memory.output = memory.stack.join('').split('').reverse().join('') );break;
 						case 'N': //outputs line by line, returns array
-							console.log( memory.output = memory.stack.join('').split('').join('\r\n') );
+							outputHandler( memory.output = memory.stack.join('').split('').join('\r\n') );
 							memory.return = memory.output.split('\r\n');break;
 						case 'M': //outputs numbers line-by-line, returns array
 							memory.return = [];
@@ -134,7 +129,7 @@
 									memory.return[j] = 'string' == typeof memory.stack[j] ? memory.stack[j] : String.fromCharCode(memory.stack[j]);
 								}
 							}
-							console.log( memory.output = memory.return.join('\r\n') );break;
+							outputHandler( memory.output = memory.return.join('\r\n') );break;
 						default:
 							throw new ReferenceError('Unknown identifier "'+c+'"');
 					}
@@ -146,9 +141,20 @@
 			getReturn: function(){ return memory.return; },
 			getVars: function(){ return memory.vars; },
 			getOutput: function(){ return memory.output; },
-			getMemory: function(){ return memory; }
+			getMemory: function(){ return memory; },
+			setOutputHandler: function( fn ){
+				if( fn instanceof window.Function)
+				{
+					outputHandler = fn;
+					return true;
+				}
+				else
+				{
+					return false;
+				}
+			}
 		};
 		
 	};
 	
-} )( []['slice']['constructor']( 'return this;' )() );
+} )( Function('return this')() );
