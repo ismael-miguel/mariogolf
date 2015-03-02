@@ -127,7 +127,7 @@
 							document.getElementById('output-pre').innerHTML = output;
 						});
 						mario.run(document.getElementById('input').value);
-						document.getElementById('status').innerHTML = '&nbsp;<font color="red"> - Completed - '+ ( (new Date()) - timeStart  ) +' microseconds</font>';
+						document.getElementById('status').innerHTML = '&nbsp;<font color="green"> - Completed ('+ ( (new Date()) - timeStart  ) +' ms)</font>';
 					}
 					catch(e)
 					{
