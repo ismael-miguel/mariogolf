@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Try the MarioGolf interpreter here</title>
+	</head>
+	<body>
+		<font face="sans-serif">
+			<noscript>
+				<div><font color="red"><b>! THIS PAGE REQUIRES JAVASCRIPT !</b></font></div>
+			</noscript>
+			<table width="850" cellspacing="0" cellpadding="0" border="0">
+				<tr>
+					<td width="50%" valign="top">
+						<h4>Code</h4><br>
+						<textarea id="mariocode" placeholder="M|O" cols="50" rows="15"></textarea><br>
+						<label>Input:</label>
+						<input type="text" id="input" size="44"/>
+						<input type="button" id="run" value="Run code"/><br>
+					</td>
+					<td width="30">&nbsp;</td>
+					<td valign="top">
+						<font size="2">
+							<h4>Debug</h4>
+							<table cellspacing="0" cellpadding="0" border="0">
+								<tr>
+									<td>
+										<h4>Code</h4>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<table border="0">
+											<tr>
+												<td><b>I</b><br>0</td>
+												<td><b>I</b><br>0</td>
+												<td><b>P</b><br>0</td>
+												<td><b>L</b><br>0</td>
+												<td><b>Z</b><br>0</td>
+											</tr>
+										</table>
+									</td>
+								</tr>
+								<tr><td><font size="1">&nbsp;</font></td></tr>
+								<tr>
+									<td>
+										<h4>Registers</h4>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<table border="0">
+											<tr>
+												<td><b>R</b><br>0</td>
+												<td><b>I</b><br>0</td>
+												<td><b>P</b><br>0</td>
+												<td><b>L</b><br>0</td>
+												<td><b>Z</b><br>0</td>
+											</tr>
+										</table>
+									</td>
+								</tr>
+								<tr><td><font size="1">&nbsp;</font></td></tr>
+								<tr>
+									<td>
+										<h4>Variables</h4>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<table border="0">
+											<tr>
+												<td><b>a</b><br>0</td>
+												<td><b>b</b><br>0</td>
+												<td><b>c</b><br>0</td>
+												<td><b>d</b><br>0</td>
+												<td><b>e</b><br>0</td>
+												<td><b>f</b><br>0</td>
+												<td><b>g</b><br>0</td>
+												<td><b>h</b><br>0</td>
+												<td><b>i</b><br>0</td>
+												<td><b>j</b><br>0</td>
+												<td><b>k</b><br>0</td>
+												<td><b>l</b><br>0</td>
+												<td><b>m</b><br>0</td>
+												<td><b>n</b><br>0</td>
+												<td><b>o</b><br>0</td>
+												<td><b>p</b><br>0</td>
+												<td><b>q</b><br>0</td>
+												<td><b>r</b><br>0</td>
+												<td><b>s</b><br>0</td>
+												<td><b>t</b><br>0</td>
+												<td><b>u</b><br>0</td>
+												<td><b>v</b><br>0</td>
+												<td><b>w</b><br>0</td>
+												<td><b>x</b><br>0</td>
+												<td><b>y</b><br>0</td>
+												<td><b>z</b><br>0</td>
+											</tr>
+										</table>
+									</td>
+								</tr>
+								<tr><td><font size="1">&nbsp;</font></td></tr>
+								<tr>
+									<td>
+										<h4>Output</h4>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<pre id="output-pre"></pre>
+									</td>
+								</tr>
+							</table>
+						</font>
+					<td>
+				</tr>
+			</table>
+		</font>
+		<script src="https://raw.githubusercontent.com/ismael-miguel/mariogolf/master/js/mariogolf.js" language="javascript"></script>
+		<script>
+			//<!--
+				document.getElementById('run').onclick=function(){
+					var mario = new MarioGolf(document.getElementById('mariocode').value);
+					mario.setOutputHandler(function(output){
+						document.getElementById('output-pre').innerHTML = output;
+					});
+					try
+					{
+						mario.run(document.getElementById('input').value);
+					}
+					catch(e)
+					{
+						alert(e.message);
+					}
+				};
+			//-->
+		</script>
+	</body>
+</html>
