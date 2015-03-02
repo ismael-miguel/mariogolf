@@ -29,13 +29,11 @@
 								</tr>
 								<tr>
 									<td>
-										<table border="0">
+										<table border="0" id="code-debug">
 											<tr>
-												<td><b>R</b><br>0</td>
-												<td><b>I</b><br>0</td>
-												<td><b>P</b><br>0</td>
-												<td><b>L</b><br>0</td>
-												<td><b>Z</b><br>0</td>
+												<td><b>Init</b><br><span>M</span></td>
+												<td><b>Body</b><br><span></span></td>
+												<td><b>Final</b><br><span>O</span></td>
 											</tr>
 										</table>
 									</td>
@@ -122,12 +120,22 @@
 				document.getElementById('run').onclick=function(){
 					try
 					{
-						var mario = new MarioGolf(document.getElementById('mariocode').value), timeStart = new Date();
+						var timeStart = new Date();
+						
+						var mario = new MarioGolf(document.getElementById('mariocode').value); // initiate mario, passing code
+						//example of the setOutputHandler method
 						mario.setOutputHandler(function(output){
-							document.getElementById('output-pre').innerHTML = output;
+							document.getElementById('output-pre').innerHTML = output; 
 						});
-						mario.run(document.getElementById('input').value);
-						document.getElementById('status').innerHTML = '&nbsp;<font color="green"> - Completed ('+ ( (new Date()) - timeStart  ) +' ms)</font>';
+						mario.run(document.getElementById('input').value); //run with input
+						var memory = mario.getMemory(); //needed to debug
+						
+						document.getElementById('status').innerHTML = '&nbsp;<font color="red"> - Completed - '+ ( (new Date()) - timeStart  ) +' microseconds</font>';
+						
+						for(var i = 0, spans = document.getElementById('code-debug').getElementsByTagName('span'); i < tds.length; i++)
+						{
+							spans[i].innerText = memory.code[i+1];
+						}
 					}
 					catch(e)
 					{
