@@ -120,12 +120,12 @@
 		<script>
 			//<!--
 				document.getElementById('run').onclick=function(){
-					var mario = new MarioGolf(document.getElementById('mariocode').value);
-					mario.setOutputHandler(function(output){
-						document.getElementById('output-pre').innerHTML = output;
-					});
 					try
 					{
+						var mario = new MarioGolf(document.getElementById('mariocode').value);
+						mario.setOutputHandler(function(output){
+							document.getElementById('output-pre').innerHTML = output;
+						});
 						mario.run(document.getElementById('input').value);
 					}
 					catch(e)
