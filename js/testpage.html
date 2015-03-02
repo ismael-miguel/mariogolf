@@ -32,7 +32,7 @@
 										<table border="0" id="code-debug">
 											<tr>
 												<td><b>Init</b><br><span>M</span></td>
-												<td><b>Body</b><br><span></span></td>
+												<td><b>Body</b><br><span>&nbsp;</span></td>
 												<td><b>Final</b><br><span>O</span></td>
 											</tr>
 										</table>
@@ -130,11 +130,11 @@
 						mario.run(document.getElementById('input').value); //run with input
 						var memory = mario.getMemory(); //needed to debug
 						
-						document.getElementById('status').innerHTML = '&nbsp;<font color="red"> - Completed - '+ ( (new Date()) - timeStart  ) +' microseconds</font>';
+						document.getElementById('status').innerHTML = '&nbsp;<font color="green"> - Completed - '+ ( (new Date()) - timeStart  ) +' microseconds</font>';
 						
-						for(var i = 0, spans = document.getElementById('code-debug').getElementsByTagName('span'); i < tds.length; i++)
+						for(var i = 0, spans = document.getElementById('code-debug').getElementsByTagName('span'); i < spans.length; i++)
 						{
-							spans[i].innerText = memory.code[i+1];
+							spans[i].innerText = memory.code[i+1] || '';
 						}
 					}
 					catch(e)
