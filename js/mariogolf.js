@@ -53,7 +53,7 @@
 				case '"':
 					if( ~code.indexOf('"',1) )
 					{
-						return code.substring(1, code.indexOf('"',1)-1 );
+						return code.substring(1, code.indexOf('"',1) );
 					}
 					else
 					{
@@ -62,15 +62,15 @@
 					break;
 					
 				case '|':
-					if( /[a-zRIPLZ]/.test( nextChar ) )
+					if( /[a-zRIPLZ]/.test( nextChar ) && (memory.vars[nextChar] || nextChar in memory.registers) )
 					{
-						if( nextChar < 'a')
+						if( /^[a-z]$/.test( nextChar ) )
 						{
-							return memory.registers[nextChar];
+							return memory.vars[nextChar];
 						}
 						else
 						{
-							return memory.vars[nextChar] === undefined ? 0 : memory.vars[nextChar];
+							return memory.registers[nextChar];
 						}
 					}
 					else
@@ -99,31 +99,32 @@
 		runBlock = function( block ){
 			for( var i = 0, l = block.length, c, Return; i<l; i++)
 			{
+				memory.registers.P++;
 				switch(c = block.charAt(i))
 				{
 				
 					/*******Arithmetic*******/
 					
 					case '+':
-						Return = (memory.registers.R / 1 || 0 ) + fetchValue( block.slice(i) );
+						Return = (memory.registers.R / 1 || 0 ) + fetchValue( block.slice( i + 1 ) );
 						break;
 					case '/':
-						Return = ( (memory.registers.R / 1 || 0 ) / fetchValue( block.slice(i) ) ) >> 0;
+						Return = ( (memory.registers.R / 1 || 0 ) / fetchValue( block.slice( i + 1 ) ) ) >> 0;
 						break;
 					case '\\':
-						Return = ( memory.registers.R / 1 || 0 ) % fetchValue( block.slice(i) );
+						Return = ( memory.registers.R / 1 || 0 ) % fetchValue( block.slice( i + 1 ) );
 						break;
 					case '-':
-						Return = memory.registers.R - fetchValue( block.slice(i) );
+						Return = memory.registers.R - fetchValue( block.slice( i + 1 ) );
 						break;
 					case '^':
-						Return = Math.pow( memory.registers.R, fetchValue( block.slice(i) ) );
+						Return = Math.pow( memory.registers.R, fetchValue( block.slice( i + 1 ) ) );
 						break;
 					case '«':
-						Return = ( memory.registers.R / 1 || 0 ) << ( fetchValue( block.slice(i) ) & 32 );
+						Return = ( memory.registers.R / 1 || 0 ) << ( fetchValue( block.slice( i + 1 ) ) & 32 );
 						break;
 					case '»':
-						Return = ( memory.registers.R / 1 || 0 ) >> ( fetchValue( block.slice(i) ) & 32 );
+						Return = ( memory.registers.R / 1 || 0 ) >> ( fetchValue( block.slice( i + 1 ) ) & 32 );
 						break;
 					case '~':
 						Return = ~ ( memory.registers.R / 1 || 0 );
@@ -132,16 +133,17 @@
 					/*******   Stack   *******/
 					
 					case '<':
-						var tmp = fetchValue( block.slice(i) );
+						var tmp = fetchValue( block.slice( i + 1 ) );
 						if( tmp / 1 == tmp / 1)
 						{
 							Return = memory.stack[memory.stack.length] = tmp >> 0;
 						}
 						else
 						{
-							for(var j = 0, k = tmp.length; j<k; j++)
+							Return = tmp;
+							for(var j = 0, l = tmp.length; j<l; j++ )
 							{
-								memory.stack[memory.stack.length] = tmp.charAt(i);
+								memory.stack[memory.stack.length] = tmp.charAt(j);
 							}
 						}
 						memory.registers.R = memory.stack[0];
@@ -198,10 +200,17 @@
 				}
 				
 				memory.registers.L = memory.stack.length;
+				memory.registers.R = memory.stack[0] || 0;
+				memory.registers.P = code[1].length + 1 ;
 				
 				if( memory.code[3].indexOf('Q') == -1 && memory.code[2] )
 				{
 					memory.return = runBlock( memory.code[2] );
+				}
+				
+				if( 0 in memory.stack )
+				{
+					memory.stack[0] = memory.registers.R;
 				}
 				
 				for(var i = 0, l = memory.code[3].length, c; i<l; i++)
