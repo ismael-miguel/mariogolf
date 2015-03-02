@@ -15,6 +15,9 @@ This uses a technique to extract the real `window` object.<br>
 It may not work on Node.js or similar.<br>
 The  `window` object is used to ensure that the object `MarioGolf` will stay available everywhere.
 
+If you want to test your code, Follow here:<br> http://htmlpreview.github.io/?https://raw.githubusercontent.com/ismael-miguel/mariogolf/master/js/testpage.html <br>
+There you can see a quick preview of the HTML testpage.html file with a rudimentar debugging tool.
+
 ## Making it work
 
 To implement and make it work, simply create a new instance of the object `MarioGolf`, giving the code as a parameter.
