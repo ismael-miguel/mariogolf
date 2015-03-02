@@ -24,14 +24,14 @@
 							<table cellspacing="0" cellpadding="0" border="0">
 								<tr>
 									<td>
-										<h4>Code</h4>
+										<h4>Code<span id="status"></span></h4>
 									</td>
 								</tr>
 								<tr>
 									<td>
 										<table border="0">
 											<tr>
-												<td><b>I</b><br>0</td>
+												<td><b>R</b><br>0</td>
 												<td><b>I</b><br>0</td>
 												<td><b>P</b><br>0</td>
 												<td><b>L</b><br>0</td>
@@ -122,15 +122,16 @@
 				document.getElementById('run').onclick=function(){
 					try
 					{
-						var mario = new MarioGolf(document.getElementById('mariocode').value);
+						var mario = new MarioGolf(document.getElementById('mariocode').value), timeStart = new Date();
 						mario.setOutputHandler(function(output){
 							document.getElementById('output-pre').innerHTML = output;
 						});
 						mario.run(document.getElementById('input').value);
+						document.getElementById('status').innerHTML = '&nbsp;<font color="red"> - Completed - '+ ( (new Date()) - timeStart  ) +' microseconds</font>';
 					}
 					catch(e)
 					{
-						alert(e.message);
+						document.getElementById('status').innerHTML = '&nbsp;<font color="red"> - Error - '+e.message+'</font>';
 					}
 				};
 			//-->
