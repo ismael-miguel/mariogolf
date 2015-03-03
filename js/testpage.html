@@ -163,6 +163,12 @@
 						document.getElementById('status').innerHTML = '&nbsp;<font color="red"> - Error - '+e.message+'</font>';
 					}
 				};
+				
+				if( ~location.hash.indexOf('c:'))
+				{
+					document.getElementById('mariocode').value=location.hash.replace('c:');
+					location.hash='';
+				}
 			//-->
 		</script>
 	</body>
