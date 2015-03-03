@@ -45,15 +45,13 @@
 									</td>
 								</tr>
 								<tr>
-									<td>
-										<table border="0">
-											<tr>
-												<td><b>R</b><br>0</td>
-												<td><b>I</b><br>0</td>
-												<td><b>P</b><br>0</td>
-												<td><b>L</b><br>0</td>
-												<td><b>Z</b><br>0</td>
-											</tr>
+									<td width="100%">
+										<table border="0" height="100" id="registers">
+											<tr><th>R</th><td>0</td></tr>
+											<tr><th>I</th><td>0</td></tr>
+											<tr><th>P</th><td>0</td></tr>
+											<tr><th>L</th><td>0</td></tr>
+											<tr><th>Z</th><td>0</td></tr>
 										</table>
 									</td>
 								</tr>
@@ -142,7 +140,21 @@
 						{
 							tds[i].innerText = memory.vars[ String.fromCharCode(97+i) ];
 						}
-						memory=tds=null;
+						
+						for(var i = 0, tds = document.getElementById('vars').getElementsByTagName('td'); i < tds.length; i++)
+						{
+							tds[i].innerText = memory.vars[ String.fromCharCode(97+i) ];
+						}
+						
+						var registers = document.getElementById('registers').getElementsByTagName('td');
+						
+						registers[0]=memory.registers.R;
+						registers[1]=memory.registers.I;
+						registers[2]=memory.registers.P;
+						registers[3]=memory.registers.L;
+						registers[4]=memory.registers.Z;
+						
+						memory=registers=tds=null;
 					}
 					catch(e)
 					{
