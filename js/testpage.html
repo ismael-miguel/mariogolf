@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Try the MarioGolf interpreter here</title>
+		<title>MarioGolf interpreter and debugger</title>
 	</head>
 	<body>
 		<font face="sans-serif">
@@ -14,7 +14,7 @@
 						<h4>Code</h4><br>
 						<textarea id="mariocode" placeholder="M|O" cols="50" rows="15"></textarea><br>
 						<label>Input:</label>
-						<input type="text" id="input" size="44"/>
+						<input type="text" id="input" size="44" style="width:250px;"/>
 						<input type="button" id="run" value="Run code"/><br>
 					</td>
 					<td width="30">&nbsp;</td>
@@ -148,11 +148,11 @@
 						
 						var registers = document.getElementById('registers').getElementsByTagName('td');
 						
-						registers[0]=memory.registers.R;
-						registers[1]=memory.registers.I;
-						registers[2]=memory.registers.P;
-						registers[3]=memory.registers.L;
-						registers[4]=memory.registers.Z;
+						registers[0].innerHTML=memory.registers.R;
+						registers[1].innerHTML=memory.registers.I;
+						registers[2].innerHTML=memory.registers.P;
+						registers[3].innerHTML=memory.registers.L;
+						registers[4].innerHTML=memory.registers.Z;
 						
 						memory=registers=tds=null;
 					}
