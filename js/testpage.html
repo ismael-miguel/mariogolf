@@ -164,7 +164,7 @@
 					}
 				};
 				
-				if( location.hash.indexOf('#c:') == 0)
+				if( ~location.hash.indexOf('c:'))
 				{
 					document.getElementById('mariocode').value=location.hash.replace('#c:','');
 					location.hash='';
