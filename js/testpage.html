@@ -11,11 +11,13 @@
 			<table width="850" cellspacing="0" cellpadding="0" border="0">
 				<tr>
 					<td width="50%" valign="top">
-						<h4>Code</h4><br>
-						<textarea id="mariocode" placeholder="M|O" cols="50" rows="15"></textarea><br>
-						<label>Input:</label>
-						<input type="text" id="input" size="44" style="width:250px;"/>
-						<input type="button" id="run" value="Run code"/><br>
+						<form id="code-form" action="javascript:void(0);" onsubmit="runcode();return false;">
+							<h4>Code</h4><br>
+							<textarea id="mariocode" placeholder="M|O" cols="50" rows="15"></textarea><br>
+							<label>Input:</label>
+							<input type="text" id="input" size="44" style="width:250px;"/>
+							<input type="submit" id="run" value="Run code"/>
+						</form>
 					</td>
 					<td width="30">&nbsp;</td>
 					<td valign="top" width="395">
@@ -115,7 +117,7 @@
 		<script src="https://raw.githubusercontent.com/ismael-miguel/mariogolf/master/js/mariogolf.js" language="javascript"></script>
 		<script>
 			//<!--
-				document.getElementById('run').onclick=function(){
+				function runcode(){
 					try
 					{
 						var timeStart = new Date();
