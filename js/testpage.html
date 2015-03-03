@@ -18,10 +18,10 @@
 						<input type="button" id="run" value="Run code"/><br>
 					</td>
 					<td width="30">&nbsp;</td>
-					<td valign="top">
+					<td valign="top" width="395">
 						<font size="2">
 							<h4>Debug</h4>
-							<table cellspacing="0" cellpadding="0" border="0">
+							<table cellspacing="0" cellpadding="0" border="0" width="100%">
 								<tr>
 									<td>
 										<h4>Code<span id="status"></span></h4>
@@ -64,37 +64,37 @@
 									</td>
 								</tr>
 								<tr>
-									<td>
-										<table border="0">
-											<tr>
-												<td><b>a</b><br>0</td>
-												<td><b>b</b><br>0</td>
-												<td><b>c</b><br>0</td>
-												<td><b>d</b><br>0</td>
-												<td><b>e</b><br>0</td>
-												<td><b>f</b><br>0</td>
-												<td><b>g</b><br>0</td>
-												<td><b>h</b><br>0</td>
-												<td><b>i</b><br>0</td>
-												<td><b>j</b><br>0</td>
-												<td><b>k</b><br>0</td>
-												<td><b>l</b><br>0</td>
-												<td><b>m</b><br>0</td>
-												<td><b>n</b><br>0</td>
-												<td><b>o</b><br>0</td>
-												<td><b>p</b><br>0</td>
-												<td><b>q</b><br>0</td>
-												<td><b>r</b><br>0</td>
-												<td><b>s</b><br>0</td>
-												<td><b>t</b><br>0</td>
-												<td><b>u</b><br>0</td>
-												<td><b>v</b><br>0</td>
-												<td><b>w</b><br>0</td>
-												<td><b>x</b><br>0</td>
-												<td><b>y</b><br>0</td>
-												<td><b>z</b><br>0</td>
-											</tr>
-										</table>
+									<td width="100%">
+										<div style="height:100px;max-height:100px;overflow:auto;">
+											<table border="0" height="100" id="vars">
+												<tr><th>a</th><td>0</td></tr>
+												<tr><th>b</th><td>0</td></tr>
+												<tr><th>c</th><td>0</td></tr>
+												<tr><th>d</th><td>0</td></tr>
+												<tr><th>e</th><td>0</td></tr>
+												<tr><th>f</th><td>0</td></tr>
+												<tr><th>g</th><td>0</td></tr>
+												<tr><th>h</th><td>0</td></tr>
+												<tr><th>i</th><td>0</td></tr>
+												<tr><th>j</th><td>0</td></tr>
+												<tr><th>k</th><td>0</td></tr>
+												<tr><th>l</th><td>0</td></tr>
+												<tr><th>m</th><td>0</td></tr>
+												<tr><th>n</th><td>0</td></tr>
+												<tr><th>o</th><td>0</td></tr>
+												<tr><th>p</th><td>0</td></tr>
+												<tr><th>q</th><td>0</td></tr>
+												<tr><th>r</th><td>0</td></tr>
+												<tr><th>s</th><td>0</td></tr>
+												<tr><th>t</th><td>0</td></tr>
+												<tr><th>u</th><td>0</td></tr>
+												<tr><th>v</th><td>0</td></tr>
+												<tr><th>w</th><td>0</td></tr>
+												<tr><th>x</th><td>0</td></tr>
+												<tr><th>y</th><td>0</td></tr>
+												<tr><th>z</th><td>0</td></tr>
+											</table>
+										</div>
 									</td>
 								</tr>
 								<tr><td><font size="1">&nbsp;</font></td></tr>
@@ -130,12 +130,19 @@
 						mario.run(document.getElementById('input').value); //run with input
 						var memory = mario.getMemory(); //needed to debug
 						
-						document.getElementById('status').innerHTML = '&nbsp;<font color="green"> - Completed - '+ ( (new Date()) - timeStart  ) +' microseconds</font>';
+						document.getElementById('status').innerHTML = '&nbsp;<font color="green"> - Completed - '+ ( (new Date()) - timeStart  ) +' ms</font>';
 						
 						for(var i = 0, spans = document.getElementById('code-debug').getElementsByTagName('span'); i < spans.length; i++)
 						{
 							spans[i].innerText = memory.code[i+1] || '';
 						}
+						spans=null;
+						
+						for(var i = 0, tds = document.getElementById('vars').getElementsByTagName('td'); i < tds.length; i++)
+						{
+							tds[i].innerText = memory.vars[ String.fromCharCode(97+i) ];
+						}
+						memory=tds=null;
 					}
 					catch(e)
 					{
