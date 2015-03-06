@@ -151,6 +151,13 @@
 						memory.stack = memory.stack.reverse();
 						memory.registers.R = memory.stack[0] || 0;
 						break;
+					case '?':
+						if( memory.stack.length && (!memory.stack[0] || memory.stack[0]=='0') )
+						{
+							memory.stack.shift();
+							memory.registers.R = memory.stack[0] || 0;
+						}
+						break;
 					case '<':
 						var tmp = fetchValue( block.slice( i + 1 ) );
 						if( tmp / 1 == tmp / 1)
