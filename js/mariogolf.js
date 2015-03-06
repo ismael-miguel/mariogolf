@@ -131,7 +131,10 @@
 						break;
 				
 					/*******   Stack   *******/
-					
+					case '.':
+						memory.stack = [];
+						memory.registers.L = memory.registers.R = 0;
+						break;
 					case '<':
 						var tmp = fetchValue( block.slice( i + 1 ) );
 						if( tmp / 1 == tmp / 1)
