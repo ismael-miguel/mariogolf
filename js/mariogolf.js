@@ -18,10 +18,10 @@
 		var version = {
 			major: 0,
 			minor: 3,
-			revision: 1,
+			revision: 2,
 			branch: 'a',
 			valueOf: function(){
-				return this.major + '.' + this.minor + '.' + this.revision + '-'.this.branch;
+				return this.major + '.' + this.minor + '.' + this.revision + '-' + this.branch;
 			},
 			toString: function(){
 				return this.valueOf();
