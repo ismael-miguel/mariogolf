@@ -131,9 +131,25 @@
 						break;
 				
 					/*******   Stack   *******/
-					case '.':
+					case ':':
 						memory.stack = [];
 						memory.registers.L = memory.registers.R = 0;
+						break;
+					case '.':
+						memory.stack.shift();
+						memory.registers.L = memory.stack.length;
+						memory.registers.R = memory.stack[0] || 0;
+						break;
+					case ',':
+						memory.registers.L = memory.stack.push.apply(memory.stack,memory.input.split(''));
+						break;
+					case ';':
+						memory.stack = memory.input.split('');
+						memory.registers.L = memory.input.length;
+						break;
+					case '!':
+						memory.stack = memory.stack.reverse();
+						memory.registers.R = memory.stack[0] || 0;
 						break;
 					case '<':
 						var tmp = fetchValue( block.slice( i + 1 ) );
