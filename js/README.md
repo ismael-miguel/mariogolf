@@ -81,7 +81,11 @@ This would trigger the exception since `|!` isn't a valid register.
    Default: `window.console.log`, you can use `document.write`, `window.alert` or an anonymous function<br>
    Only 1 argument will be set, which will contain the output.<br>
    Using `this` inside the output handler will be pointing to `window.console`, so you can do simply `this.log()`.
- - `getVersion()` - Returns the current version.
+ - `getVersion()` - Returns the current version (since version `0.3.1-a`).<br>
+   The version comes in the format `major.minor.review-branch`, being the branch either:
+   - `a` - alfa
+   - `b` - beta
+   - `r` - stable release
 
 ## Notices
 
