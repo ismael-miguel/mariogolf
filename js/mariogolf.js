@@ -15,7 +15,20 @@
 			throw new SyntaxError( 'Missing "' + ( tmp[0] < tmp[1] ? '{' : '}' ) + '" before the last identifier.', 'code', 0 );
 		}
 		
-		var memory = {
+		var version = {
+			major: 0,
+			minor: 3,
+			revision: 1,
+			branch: 'a',
+			valueOf: function(){
+				return this.major + '.' + this.minor + '.' + this.revision + '-'.this.branch;
+			},
+			toString: function(){
+				return this.valueOf();
+			}
+		},
+		
+		memory = {
 			code:code,
 			return:'',
 			input:'',
@@ -290,7 +303,8 @@
 				{
 					return false;
 				}
-			}
+			},
+			getVersion: function(){ return version; }
 		};
 		
 	};
