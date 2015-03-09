@@ -167,12 +167,15 @@
 					{
 						document.getElementById('status').innerHTML = '&nbsp;<font color="red"> - Error - '+e.message+'</font>';
 					}
+					
+					document.getElementById('version').innerHTML = MarioGolf.getVersion() + '';
 				};
 				
 				if( ~location.hash.indexOf('c:') )
 				{
 					document.getElementById('mariocode').value=location.hash.replace('#c:','');
 					location.hash='';
+					runcode();
 				}
 			//-->
 		</script>
