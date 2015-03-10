@@ -168,6 +168,27 @@
 						memory.registers.R = memory.stack[0];
 						memory.registers.L = memory.stack.length;
 						break;
+					
+					/******* Comparison ******/
+					case '[':
+						Return = 1 * (memory.registers.R > block[i+1]);
+						break;
+					case ']':
+						Return = 1 * (memory.registers.R < block[i+1]);
+						break;
+					case 'ç':
+						Return = 1 * (memory.registers.R == block[i+1]);
+						break;
+					case 'Ç':
+						Return = 1 * (memory.registers.R != block[i+1]);
+						break;
+					case '(':
+						Return = 1 * (memory.registers.R > 0);
+						break;
+					case ')':
+						Return = 1 * (memory.registers.R < 0);
+						break;
+					
 				}
 			}
 		},
