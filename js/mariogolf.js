@@ -1,3 +1,5 @@
+//next method:  '.<"\\"testing"'.match(/\|[a-zRIPLZ#$&%@]|'.|"(?:\\"|[^"])*"|[={}\\\/+\-*^«»~><!?:.,;\[\]çÇ\(\)]|\d/g)
+
 ( function( window, undefined ){
 	
 	window.MarioGolf = function( code ){
