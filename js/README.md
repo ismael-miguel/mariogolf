@@ -85,7 +85,8 @@ This would trigger the exception since `|!` isn't a valid register.
    The version comes in the format `major.minor.review-branch`, being the branch either:
    - `a` - alfa
    - `b` - beta
-   - `r` - stable release
+   - `s` - stable release
+   - `n` - next - future written code, usually unusable.
 
 ## Notices
 
